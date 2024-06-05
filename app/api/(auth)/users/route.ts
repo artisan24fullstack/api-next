@@ -1,5 +1,16 @@
+import connect from "@/lib/db";
+import User from "@/lib/modals/user";
 import { NextResponse } from "next/server"
 
-export const GET = () => {
-  return new NextResponse("This is a api with next")
+// http://localhost:3000/api/users
+export const GET = async () => {
+
+  try {
+    await connect();
+    const users = await User.find();
+    return new NextResponse(JSON.stringify(users), { status: 200 });
+  } catch (error: any) {
+    return new NextResponse("Error in fetching users" + error.message, { status: 500 });
+  }
+  //return new NextResponse("This is a api with next");
 };
