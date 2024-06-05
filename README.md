@@ -1,8 +1,5 @@
 ## Next.js
-Building REST APIs with Next.js 14 – Course for Beginners
-
-- https://www.youtube.com/watch?v=aEFkWxUNAVc&t=232s
-
+Building REST APIs with Next.js 14
 ```
 npx create-next-app@latest .
 ```
@@ -23,8 +20,13 @@ npm install mongodb
 
 npm install mongoose
 ```
+## Learn technos and tools
 
-TODO video 1.14 
+- postman
+- mongoDB
+- typescript 
+- api rest
+- ... TODO video 1.14 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
