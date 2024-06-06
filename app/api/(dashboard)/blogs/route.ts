@@ -12,9 +12,9 @@ export const GET = async (request: Request) => {
     const categoryId = searchParams.get("categoryId");
 
     const searchKeywords = searchParams.get("keywords") as string;
-    /*
     const startDate = searchParams.get("startDate");
     const endDate = searchParams.get("endDate");
+    /*
     const page: any = parseInt(searchParams.get("page") || "1");
     const limit: any = parseInt(searchParams.get("limit") || "10");
     */
@@ -64,6 +64,21 @@ export const GET = async (request: Request) => {
           description: { $regex: searchKeywords, $options: "i" },
         },
       ];
+    }
+
+    if (startDate && endDate) {
+      filter.createdAt = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
+      };
+    } else if (startDate) {
+      filter.createdAt = {
+        $gte: new Date(startDate),
+      };
+    } else if (endDate) {
+      filter.createdAt = {
+        $lte: new Date(endDate),
+      };
     }
 
     const blogs = await Blog.find(filter);
