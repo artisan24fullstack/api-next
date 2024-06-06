@@ -11,7 +11,13 @@ export const GET = async (request: Request) => {
     const userId = searchParams.get("userId");
     const categoryId = searchParams.get("categoryId");
 
-
+    const searchKeywords = searchParams.get("keywords") as string;
+    /*
+    const startDate = searchParams.get("startDate");
+    const endDate = searchParams.get("endDate");
+    const page: any = parseInt(searchParams.get("page") || "1");
+    const limit: any = parseInt(searchParams.get("limit") || "10");
+    */
     if (!userId || !Types.ObjectId.isValid(userId)) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid or missing userId" }),
@@ -48,6 +54,17 @@ export const GET = async (request: Request) => {
       user: new Types.ObjectId(userId),
       category: new Types.ObjectId(categoryId),
     };
+
+    if (searchKeywords) {
+      filter.$or = [
+        {
+          title: { $regex: searchKeywords, $options: "i" },
+        },
+        {
+          description: { $regex: searchKeywords, $options: "i" },
+        },
+      ];
+    }
 
     const blogs = await Blog.find(filter);
 
